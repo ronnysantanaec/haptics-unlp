@@ -1,0 +1,84 @@
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="css/hammer.css">
+        <script src="js/hammer.js"></script>
+    </head>
+
+    <body>
+
+        Eventos haptics: tap, press, flick (panleft, panright)
+        <div id="myElement"></div>
+        <br/>
+
+        Eventos haptics: singletap (tap), doubletap
+        <div id="myElement2"></div>
+        <br/>
+
+        Eventos haptics: pinch, rotate
+        <div id="myElement3"></div>
+
+        <script>
+var myElement = document.getElementById('myElement');
+
+var myElement2 = document.getElementById('myElement2');
+
+var myElement3 = document.getElementById('myElement3');
+
+//alert (myElement);
+var mc = new Hammer(myElement);
+// listen to events...
+mc.on("panleft panright tap press", function(ev) {
+    myElement.textContent = ev.type +" ";
+    navigator.vibrate([500]);
+});        
+
+// We create a manager object, which is the same as Hammer(), but without the presetted recognizers. 
+var mc2 = new Hammer.Manager(myElement2);
+
+// Tap recognizer with minimal 2 taps
+mc2.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
+// Single tap recognizer
+mc2.add( new Hammer.Tap({ event: 'singletap' }) );
+
+// we want to recognize this simulatenous, so a quadrupletap will be detected even while a tap has been recognized.
+mc2.get('doubletap').recognizeWith('singletap');
+// we only want to trigger a tap, when we don't have detected a doubletap
+mc2.get('singletap').requireFailure('doubletap');
+
+mc2.on("singletap doubletap", function(ev) {
+    myElement2.textContent = ev.type +" ";
+
+    if (ev.type == "singletap"){
+        navigator.vibrate([500]);
+    }
+
+    if (ev.type == "doubletap"){
+        navigator.vibrate([500, 100, 500]);
+    }
+
+});
+        
+var mc3 = new Hammer.Manager(myElement3);
+
+// create a pinch and rotate recognizer
+// these require 2 pointers
+var pinch = new Hammer.Pinch();
+var rotate = new Hammer.Rotate();
+
+// we want to detect both the same time
+pinch.recognizeWith(rotate);
+
+// add to the Manager
+mc3.add([pinch, rotate]);
+
+mc3.on("pinch rotate", function(ev) {
+    myElement3.textContent = ev.type +" ";
+    navigator.vibrate([500]);
+});
+
+        </script>
+
+    </body>
+</html>

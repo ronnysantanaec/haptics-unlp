@@ -1,0 +1,10 @@
+Ejemplo
+	http://hammerjs.github.io/examples/
+
+Vibraciones
+	http://www.hapticsjs.org/
+	https://illyism.github.io/jquery.vibrate.js/
+
+Gesture
+	http://zingchart.github.io/zingtouch/
+	https://stackoverflow.com/questions/11183174/simplest-way-to-detect-a-pinch

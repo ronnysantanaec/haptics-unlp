@@ -1,0 +1,30 @@
+<html>
+    <!--
+        https://developer.mozilla.org/en-US/Apps/Fundamentals/User_input_methods/Touch_Gestures_and_Events
+    -->
+    <head>
+        <meta charset="utf-8">
+        <script>
+            function vib1() {
+                // Vibrate for 500ms
+                navigator.vibrate([500]);
+            }
+        </script>
+    </head>
+
+    <body>
+        <h3 id="Tap">Haptic: Tap</h3>
+        <p>
+        <img id="tap" src="img/tap.svg" onclick="vib1()" alt="" style="float: left; height: 200px; width: 200px;">
+        </p>
+        </br>    
+        </br>    
+        </br>    
+        </br>    
+        <h3 id="Double-Tap">Haptic: Tap</h3>
+        <p>
+        <img id="double-tap" src="img/tap.svg" ondblclick="vib1()" alt="" style="float: left; height: 200px; width: 200px;">
+        </p>
+        
+    </body>
+</html>
